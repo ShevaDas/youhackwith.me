@@ -67,7 +67,9 @@ body {
 .bottom {
 	position: absolute;
 	bottom: 0;
-	margin-left: 150px;
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .info {

@@ -6,7 +6,8 @@ import random
 render = web.template.render('templates/')
 
 urls = (
-  '/', 'index',
+  '/', 'index'
+#  '^/(\d+)', 'permalink'
 )
 
 tech = ["iOS", "Android", "Windows phone", "Xbox", "Kinect", "Playstation", "Wii U", "Arduino", "Oculus Rift", "Angular.js", "Backbone.js", "Node.js", "Javascript", "Python", "Pebble", "Apple Watch", "Facebook", "Ruby on Rails", "Mac", "Windows", "Linux", "command line", "HTML5/CSS3", "Lego Mindstorm", "assembly language", "Visual Basic", "Brainf*ck", "COBOL", "Fortran", "LISP", "Turing complete", "chatbot", "useless", "crappy", "awesome", "server-side", "client-side", "Java", "esoteric", "barely functional", "Raspberry Pi"]
@@ -31,9 +32,34 @@ def random_phrase(phrase_list):
   return rphrase
 
 def is_aesop():
-  chance = random.randint(1,10)
+  chance = random.randint(1,10)  
   if chance == 1 or chance == 10:
     return random_phrase(aesop)
+
+def pad_permalink(phrase_index):
+  if len(str(phrase_index)) == 1:
+    phrase_index = str(phrase_index).zfill(2)
+  return str(phrase_index)
+
+def build_permalink(rtech, raction1, revent, rstuff, raction2,rdenouement, raesop):
+  tech_index = pad_permalink(rtech[1])
+  action1_index = pad_permalink(raction1[1])
+  event_index = pad_permalink(revent[1])
+  stuff_index = pad_permalink(rstuff[1])
+  action2_index = pad_permalink(raction2[1])
+  denouement_index = pad_permalink(rdenouement[1])
+  url = str(tech_index) + str(action1_index) + str(event_index) + str(stuff_index) + str(action2_index) + str(denouement_index)
+  if raesop:
+    aesop_index = pad_permalink(raesop[1])
+    url += str(aesop_index)
+  return url
+
+def unbuild_permalink(url):
+  indexes = map(int, [url[start:start+2] for start in range(0, len(url), 2)])
+  if len(indexes) == 7:
+    return tech[indexes[0]], action1[indexes[1]], event[indexes[2]], stuff[indexes[3]], action2[indexes[4]], denouement[indexes[5]], aesop[indexes[6]]
+  else:
+    return tech[indexes[0]], action1[indexes[1]], event[indexes[2]], stuff[indexes[3]], action2[indexes[4]], denouement[indexes[5]]
 
 class index:
     def GET(self):
@@ -44,7 +70,24 @@ class index:
 	raction2 = random_phrase(action2)
 	rdenouement = random_phrase(denouement)
 	raesop = is_aesop()
-	return render.index(rtech, raction1, revent, rstuff, raction2, rdenouement, raesop)
+	url = build_permalink(rtech, raction1, revent, rstuff, raction2,rdenouement, raesop)
+	return render.index(rtech, raction1, revent, rstuff, raction2, rdenouement, raesop, url)
+
+class permalink:
+	def GET(self, id):
+		phrases = unbuild_permalink(id)
+		rtech = phrases[0]
+		raction1 = phrases[1]
+		revent = phrases[2]
+		rstuff = phrases[3]
+		raction2 = phrases[4]
+		rdenouement = phrases[5]
+		if len(phrases) == 7:
+			raesop = phrases[6]
+		else:
+			raesop = None
+		url = id
+		return render.view(rtech, raction1, revent, rstuff, raction2, rdenouement, raesop, url)
 
 if __name__ == "__main__": 
     app = web.application(urls, globals())
