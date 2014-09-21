@@ -50,7 +50,7 @@ body {
 .top {	
     height:100vh;
     min-height: 650px;
-    background-image: url("http://www.unhackathon.org/img/background.jpg");
+    background-image: url("background.jpg");
     background-size: 100vw;
     background-position: center 0px;
     padding-top: 67px;
@@ -62,4 +62,28 @@ body {
     margin: 85px 250px 0 250px;
     background: rgba(255, 253, 253, 0.8);
     padding: 20px;
+}
+
+.bottom {
+	position: absolute;
+	bottom: 0;
+	margin-left: 150px;
+}
+
+.info {
+	font-size: smaller;
+	text-align: center;
+}
+
+.info a {
+	text-decoration: none;
+	color: rgba(204, 204, 204, 1);
+}
+
+.info a:hover {
+	text-decoration: underline;
+}
+
+.littler {
+	font-size: smaller;
 }
