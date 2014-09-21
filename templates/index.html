@@ -1,0 +1,32 @@
+$def with (rtech, raction1, revent, rstuff, raction2, rdenouement, raesop) 
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IT'S UNHACKATHON STORYTIME!</title>
+		<link rel="stylesheet" type="text/css" href="base.css" />
+		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />		
+		<link href='http://www.unhackathon.org/fonts/chunkfive-webfont-webfont.woff' />
+	</head>
+	<body>
+		<a href="/"><div id="logo">
+			<div class="name">Un<br>hack<br>athon</div>
+			<div class="date">Sept. 20-21</div>
+			<div class="place">New York City</div>
+		</div></a>
+		
+		<div class="top">
+			<div class="storytime">
+				<div class="row"><h1>This one time at Unhackathon, I built $rtech app that $raction1 when $revent.</h1></div>
+				<div class="row"><h1>Using $rstuff, I $raction2 and $rdenouement.</h1></div>
+				$if raesop:
+					<br /><div class="row"><h1>$raesop</h1></div>
+			</div>
+		</div>
+
+		<div class="bottom">
+			<span class="info"><a href="https://github.com/ShevaDas/unhackathon-storytime">Source Code</a></span> | <span class="contact"><a href="mailto:b@shevagoldberg.com">Questions?</a> <a href="mailto:sheva@eatabagofdicks.org"> Complaints?</a></span> | <span class="info"><a href="/credits">Credits</a></span>
+		</div>
+	</body>
+</html>
+	
